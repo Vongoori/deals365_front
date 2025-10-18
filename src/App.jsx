@@ -11,6 +11,8 @@ import MyDeals from "./pages/MyDeals";
 import ShoppingList from "./pages/ShoppingList";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./pages/Dashboard";
+
 
 const App = () => {
   return (
@@ -25,20 +27,21 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/nearby" element={<DealsNearby />} />
           {/* USER Protected Routes */}
-          <Route element={<PrivateRoute allowedRoles={["user"]} />}>
+          <Route element={<PrivateRoute allowedRoles={["consumer"]} />}>
             
             <Route path="/shopping-list" element={<ShoppingList />} />
           </Route>
 
           {/* STORE Protected Routes */}
-          <Route element={<PrivateRoute allowedRoles={["store"]} />}>
+          <Route element={<PrivateRoute allowedRoles={["business-owner"]} />}>
             <Route path="/add-deal" element={<AddDeal />} />
             <Route path="/my-deals" element={<MyDeals />} />
           </Route>
 
           {/* Common Protected Routes (both roles) */}
-          <Route element={<PrivateRoute allowedRoles={["user", "store"]} />}>
+          <Route element={<PrivateRoute allowedRoles={["consumer", "business-owner"]} />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
 
         </Routes>

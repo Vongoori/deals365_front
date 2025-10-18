@@ -3,7 +3,7 @@ import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const[formData, setFormData] = useState({store_name:"", email:"",password:"",postcode:""});
+  const[formData, setFormData] = useState({name:"", email:"",password:"",postcode:"", role:""});
   const[error, setError] = useState({});
   const navigate = useNavigate();
 
@@ -84,13 +84,28 @@ const validatePostcodeOnline = async (postcode) => {
             {error.general && <p className="text-red-500 mb-4">{error.general}</p>}
     
             <form onSubmit={handleSubmit}>
-               <InputField label="Name" type="text" name="store_name" value={formData.store_name} onChange={handleChange} />
+               <InputField label="Name" type="text" name="name" value={formData.store_name} onChange={handleChange} />
               <InputField label="Email" type="email" name="email" value={formData.email} onChange={handleChange} />
               {error.email && <p className="text-red-500 mb-4">{error.email}</p>}
               <InputField label="Password" type="password" name="password" value={formData.password} onChange={handleChange} />
               {error.password && <p className="text-red-500 mb-4">{error.password}</p>}
                <InputField label="Postcode" type="text" name="postcode" value={formData.postcode} onChange={handleChange} />
                {error.postcode && <p className="text-red-500 mb-4">{error.postcode}</p>}
+               
+                {/* 🆕 Role Dropdown */}
+                <div className="mb-4">
+                  <label className="block text-gray-700 font-medium mb-2">Role</label>
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary text-gray-700"
+                  >
+                    <option value="">Select Role</option>
+                    <option value="business-owner">Business Owner</option>
+                    <option value="consumer">Consumer</option>
+                  </select>
+                </div>
     
               <button
                 type="submit"

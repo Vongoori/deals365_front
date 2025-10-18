@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // adjust the path as needed
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   
 const handleChange = (e) => {
@@ -30,8 +32,10 @@ const handleSubmit = async (e) => {
     alert("Login Successful");
     // localStorage.setItem("token", data.accessToken);
     // localStorage.setItem("user", JSON.stringify(data.user));
-
-    //navigate("/store/dashboard");
+     // ✅ Use AuthContext instead of manually setting localStorage
+    const userData = { ...data.user, token: data.accessToken };
+    login(userData);
+    navigate("/dashboard");
   } catch (err) {
     setError(err.message);
   }
